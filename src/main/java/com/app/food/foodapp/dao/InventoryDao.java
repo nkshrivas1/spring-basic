@@ -35,7 +35,11 @@ public class InventoryDao {
         i.setPrice(rs.getDouble("price"));
         return i;
     };
-    public List<Inventory> findAll(){
+    public List<Inventory> findAll(int limit,int pageNo){
         return jdbcTemplate.query("SELECT * FROM inventory",inventoryRowMapper);
+    }
+
+    public void deleteById(int id){
+        jdbcTemplate.update("DELETE FROM inventory WHERE id=?",id);
     }
 }
