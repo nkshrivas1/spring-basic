@@ -42,4 +42,15 @@ public class InventoryDao {
     public void deleteById(int id){
         jdbcTemplate.update("DELETE FROM inventory WHERE id=?",id);
     }
+    public Inventory findById(int id){
+        return jdbcTemplate.queryForObject("SELECT * FROM inventory WHERE id=?",
+                new Object[]{id},
+                (rs,rowNum)->{
+            Inventory inv = new Inventory();
+            inv.setId(id);
+            inv.setName(rs.getString("name"));
+            inv.setPrice(rs.getDouble("price"));
+            return inv;
+        });
+    }
 }
